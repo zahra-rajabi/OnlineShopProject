@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .icon {
+    @apply size-6;
+  }
+  .GrayBorder {
+    @apply border-dashed border-2 border-LightGray;
+  }
+  .RedBorder {
+    @apply border-dashed border-2 border-Red;
+  }
+  .flexCenter {
+    @apply flex justify-center items-center;
+  }
+}
