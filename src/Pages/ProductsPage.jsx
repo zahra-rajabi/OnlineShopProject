@@ -4,7 +4,13 @@ import Categories from "../Components/Categories";
 import SearchBox from "../Components/SearchBox";
 import Loader from "../Components/Loader";
 import { useEffect, useState } from "react";
-import { filterProduct, searchProducts } from "../helpers/helper";
+import {
+  createQueryObject,
+  filterProduct,
+  getInitialQuery,
+  searchProducts,
+} from "../helpers/helper";
+import { useSearchParams } from "react-router-dom";
 // // // // // // // // // // // //
 function ProductsPage() {
   const [search, setSearch] = useState("");
@@ -12,25 +18,30 @@ function ProductsPage() {
   const Products = useProduct();
   const [query, setQuery] = useState([]);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
   useEffect(() => {
     setDisplayed(Products);
+    setQuery(getInitialQuery(searchParams));
   }, [Products]);
 
   const searchHandler = () => {
-    setQuery((query) => ({ ...query, search }));
+    setQuery((query) => createQueryObject(query, { search }));
   };
   const categoryHandler = (event) => {
     const { tagName } = event.target;
     const Category = event.target.innerText.toLowerCase();
 
     if (tagName !== "LI") return;
-    setQuery((query) => ({ ...query, Category }));
+    setQuery((query) => createQueryObject(query, { Category }));
   };
 
   useEffect(() => {
+    setSearchParams(query);
+    setSearch(query.search || "");
     let FinalProduct = searchProducts(Products, query.search);
-    let FilteredProduct = filterProduct(FinalProduct, query.Category);
-    setDisplayed(FilteredProduct);
+    FinalProduct = filterProduct(FinalProduct, query.Category);
+    setDisplayed(FinalProduct);
   }, [Products, query]);
 
   return (

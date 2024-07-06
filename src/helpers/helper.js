@@ -20,4 +20,31 @@ function filterProduct(products, category) {
   return filtered;
 }
 
-export { shortenText, searchProducts, filterProduct };
+function createQueryObject(currentQuery, newQuery) {
+  if (newQuery.Category === "all") {
+    let { Category, ...rest } = currentQuery;
+    return rest;
+  }
+  if (newQuery.search === "") {
+    let { search, ...rest } = currentQuery;
+    return rest;
+  }
+
+  return { ...currentQuery, ...newQuery };
+}
+
+function getInitialQuery(searchParams) {
+  const existedQuery = {};
+  const search = searchParams.get("search");
+  const Category = searchParams.get("Category");
+  if (Category) existedQuery.Category = Category;
+  if (search) existedQuery.search = search;
+  return existedQuery;
+}
+export {
+  shortenText,
+  searchProducts,
+  filterProduct,
+  createQueryObject,
+  getInitialQuery,
+};
