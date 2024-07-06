@@ -5,7 +5,6 @@ import SearchBox from "../Components/SearchBox";
 import Loader from "../Components/Loader";
 import { useEffect, useState } from "react";
 import {
-  createQueryObject,
   filterProduct,
   getInitialQuery,
   searchProducts,
@@ -17,24 +16,12 @@ function ProductsPage() {
   const [displayed, setDisplayed] = useState([]);
   const Products = useProduct();
   const [query, setQuery] = useState([]);
-
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     setDisplayed(Products);
     setQuery(getInitialQuery(searchParams));
   }, [Products]);
-
-  const searchHandler = () => {
-    setQuery((query) => createQueryObject(query, { search }));
-  };
-  const categoryHandler = (event) => {
-    const { tagName } = event.target;
-    const Category = event.target.innerText.toLowerCase();
-
-    if (tagName !== "LI") return;
-    setQuery((query) => createQueryObject(query, { Category }));
-  };
 
   useEffect(() => {
     setSearchParams(query);
@@ -46,11 +33,7 @@ function ProductsPage() {
 
   return (
     <>
-      <SearchBox
-        search={search}
-        setSearch={setSearch}
-        searchHandler={searchHandler}
-      />
+      <SearchBox search={search} setSearch={setSearch} setQuery={setQuery} />
       <main className="flex gap-4 mb-8 ">
         {!displayed.length && <Loader />}
         {!!displayed.length && (
@@ -61,7 +44,7 @@ function ProductsPage() {
           </section>
         )}
         <nav className="w-1/5 h-screen ">
-          <Categories categoryHandler={categoryHandler} />
+          <Categories setQuery={setQuery} query={query} />
         </nav>
       </main>
     </>

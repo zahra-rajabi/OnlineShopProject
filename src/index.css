@@ -15,7 +15,4 @@
   .flexCenter {
     @apply flex items-center justify-center;
   }
-  a .active {
-    @apply bg-Red text-Red;
-  }
 }
