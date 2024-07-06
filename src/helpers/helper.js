@@ -6,4 +6,18 @@ function shortenText(value) {
   return newText;
 }
 
-export default shortenText;
+function searchProducts(products, searchValue) {
+  if (!searchValue) return products;
+  const searched = products.filter((p) =>
+    shortenText(p.title).toLowerCase().includes(searchValue)
+  );
+  return searched;
+}
+
+function filterProduct(products, category) {
+  if (!category || category === "all") return products;
+  const filtered = products.filter((p) => p.category === category);
+  return filtered;
+}
+
+export { shortenText, searchProducts, filterProduct };

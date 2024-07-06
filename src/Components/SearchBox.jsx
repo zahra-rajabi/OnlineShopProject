@@ -1,14 +1,10 @@
 import { useState } from "react";
 import { GoSearch } from "react-icons/go";
 
-function SearchBox() {
-  const [search, setSearch] = useState("");
-  const searchHandler = () => {
-    console.log(search);
-  };
+function SearchBox({ search, setSearch, searchHandler }) {
   return (
     <section className="flex items-center gap-2 my-8">
-      <div className="bg-colorWhite py-1 px-2 RedBorder text-Red rounded-lg tracking-wider">
+      <div className="px-2 py-1 tracking-wider rounded-lg bg-colorWhite RedBorder text-Red">
         <input
           type="text"
           className=" focus:outline-none"

@@ -10,7 +10,10 @@ export default {
         colorWhite: "#fff",
         LightGray: "#d4d4d4",
       },
+      backgroundImage: {
+        notFound: "URL('/src/assets/404NotFound.jpg')",
+      },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")],
 };

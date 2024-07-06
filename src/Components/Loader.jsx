@@ -1,12 +1,12 @@
 import { RotatingLines } from "react-loader-spinner";
 
-function Loader() {
+function Loader({ notFound }) {
   return (
-    <div className="h-screen w-full flexCenter">
+    <div className="w-4/5">
       <RotatingLines
-        width="80px"
-        height="80px"
-        strokeColor="#ef4444"
+        width="60px"
+        height="60px"
+        strokeColor="#1f2937"
         strokeWidth="3"
       />
     </div>
