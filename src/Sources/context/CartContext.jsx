@@ -19,7 +19,44 @@ const reducer = (state, action) => {
         ...sumProducts(state.selectedItems),
         CheckOut: false,
       };
+    case "REMOVE_ITEM":
+      const newSelectedItem = state.selectedItems.filter(
+        (item) => item.id !== action.payload.id
+      );
+      return {
+        ...state,
+        selectedItems: [...newSelectedItem],
+        ...sumProducts(newSelectedItem),
+      };
+    case "INCREASE":
+      const increasedItem = state.selectedItems.findIndex(
+        (item) => item.id === action.payload.id
+      );
 
+      state.selectedItems[increasedItem].quantity++;
+
+      return {
+        ...state,
+        ...sumProducts(state.selectedItems),
+      };
+    case "DECREASE":
+      const decreasedItem = state.selectedItems.findIndex(
+        (item) => item.id === action.payload.id
+      );
+
+      state.selectedItems[decreasedItem].quantity--;
+
+      return {
+        ...state,
+        ...sumProducts(state.selectedItems),
+      };
+    case "CECKOUT":
+      return {
+        selectedItems: [],
+        ItemCounter: 0,
+        total: 0,
+        CheckOut: true,
+      };
     default:
       throw new Error("Invalid Action");
   }

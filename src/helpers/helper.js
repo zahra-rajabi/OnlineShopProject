@@ -56,7 +56,14 @@ function sumProducts(product) {
 
   return { ItemCounter, total };
 }
+
+function productQuantity(state, id) {
+  const index = state.selectedItems.findIndex((item) => item.id === id);
+  if (index === -1) return 0;
+  return state.selectedItems[index].quantity;
+}
 export {
+  productQuantity,
   shortenText,
   searchProducts,
   filterProduct,
