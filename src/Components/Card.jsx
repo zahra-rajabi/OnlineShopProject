@@ -15,7 +15,6 @@ function Card({ product }) {
   }
 
   const quantity = productQuantity(state, id);
-  console.log(quantity);
 
   return (
     <section className="w-[24%] p-2 rounded-lg bg-colorWhite GrayBorder">
